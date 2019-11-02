@@ -3,14 +3,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as do_logout, authenticate
 from django.contrib.auth import login as do_login
 
-from application.models import Owner_Ship
+from application.models import Owner_Ship, City
 
 
 def welcome(request):
     propiedades_list = Owner_Ship.objects.all()
+    ciudades_list = City.objects.all()
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        return render(request, "application/welcome.html", {'propiedades_list': propiedades_list})
+        return render(request, "application/welcome.html", {'propiedades_list': propiedades_list,
+                                                            'ciudades_list': ciudades_list})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
@@ -42,6 +44,14 @@ def ownershipform(request):
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
         return render(request, "application/ownershipform.html")
+    # En otro caso redireccionamos al login
+    return redirect('/login')
+
+
+def cityform(request):
+    # Si estamos identificados devolvemos la portada
+    if request.user.is_authenticated:
+        return render(request, "application/cityform.html")
     # En otro caso redireccionamos al login
     return redirect('/login')
 
