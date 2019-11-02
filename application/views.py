@@ -40,6 +40,16 @@ def register(request):
     return render(request, "application/register.html", {'form': form})
 
 
+def detail(request, owner_ship_id):
+    o = Owner_Ship.objects.get(id=owner_ship_id)
+    ciudades_list = City.objects.all()
+    # Si estamos identificados devolvemos la portada
+    if request.user.is_authenticated:
+        return render(request, "application/detail.html", {'ciudades_list': ciudades_list, 'owner_ship': o})
+    # En otro caso redireccionamos al login
+    return redirect('/login')
+
+
 def ownershipform(request):
     # Si estamos identificados devolvemos la portada
     ciudades_list = City.objects.all()

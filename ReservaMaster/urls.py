@@ -25,4 +25,5 @@ urlpatterns = [
     path('login', views.login),
     path('logout', views.logout),
     path('admin/', admin.site.urls),
+    path('detail/<int:owner_ship_id>', views.detail)
 ]
