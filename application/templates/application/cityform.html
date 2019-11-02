@@ -13,10 +13,10 @@
                 <p>Porfavor, ingrese la informacion solicitada.</p>
             </div>
 
-            <form id="" method="POST" action="">
-
+            <form method="POST">
+                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" class="form-control" name="cityname" id="osname" placeholder="Nombre de la Ciudad" required>
+                    <input type="text" class="form-control" name="cityname" id="cityname" placeholder="Nombre de la Ciudad" required>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="province" id="province" placeholder="Provincia" required>
@@ -25,6 +25,9 @@
                 <button type="submit" class="btn btn-primary" style="background: #f0ad4e;border-color: #f0ad4e;color: #ffffff;font-size: 14px;width: 100%;height: 50px;line-height: 50px;padding: 0;" >Enviar</button>
 
             </form>
+            {% if msg != '' %}
+                <div class="alert alert-danger">Cargado Correctamente!</div>
+            {% endif %}
             <br>
             <a class="btn btn-primary" style="background: #f0ad4e;border-color: #f0ad4e;color: #ffffff;font-size: 14px;width: 100%;height: 50px;line-height: 50px;padding: 0;" href="/">Home</a>
         </div>

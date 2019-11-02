@@ -35,6 +35,16 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
+            <li>
+                <a class="nav-link" href="/propiedad">Agregar Propiedad</span>
+                </a>
+            </li>
+            {% if request.user.is_superuser %}
+            <li>
+                <a class="nav-link" href="/ciudad">Agregar Ciudad</span>
+                </a>
+            </li>
+            {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="/logout">Cerrar Sesión</a>
           </li>
