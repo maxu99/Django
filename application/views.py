@@ -51,9 +51,20 @@ def ownershipform(request):
 
 def cityform(request):
     # Si estamos identificados devolvemos la portada
-
+    error = ''
+    msg = ''
+    if request.method == 'POST':
+        name = request.POST['cityname']
+        province = request.POST['province']
+        if name is not None:
+            c = City(name=name, province=province)
+            c.save()
+            msg = 'Cargado Correctamente'
+        else:
+            error = 'La ciudad debe tener nombre'
     if request.user.is_authenticated:
-        return render(request, "application/cityform.html",)
+        return render(request, "application/cityform.html", {'error': error,'msg': msg})
+        msg = ''
     # En otro caso redireccionamos al login
     return redirect('/login')
 
