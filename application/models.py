@@ -16,7 +16,9 @@ class City(models.Model):
 
 
 class Owner_Ship(models.Model):
+    name = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
+    price = models.IntegerField()
     capacity = models.IntegerField()
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, null=False, on_delete=models.SET('null'))
