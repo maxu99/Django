@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -37,7 +39,7 @@ class Reservation(models.Model):
         verbose_name_plural = 'Reservas'
 
     def __str__(self):
-        return self.date, self.total
+        return datetime.strftime(self.date, '%d/%m/%Y')
 
 
 class Date_Rent(models.Model):
