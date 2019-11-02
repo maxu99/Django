@@ -42,16 +42,18 @@ def register(request):
 
 def ownershipform(request):
     # Si estamos identificados devolvemos la portada
+    ciudades_list = City.objects.all()
     if request.user.is_authenticated:
-        return render(request, "application/ownershipform.html")
+        return render(request, "application/ownershipform.html", {'ciudades_list': ciudades_list})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
 
 def cityform(request):
     # Si estamos identificados devolvemos la portada
+
     if request.user.is_authenticated:
-        return render(request, "application/cityform.html")
+        return render(request, "application/cityform.html",)
     # En otro caso redireccionamos al login
     return redirect('/login')
 
