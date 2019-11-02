@@ -43,8 +43,23 @@ def register(request):
 def ownershipform(request):
     # Si estamos identificados devolvemos la portada
     ciudades_list = City.objects.all()
+    error = ''
+    msg = ''
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['desc']
+        capacity = request.POST['capacity']
+        price = request.POST['price']
+        city = request.POST['city']
+        my_city = ciudades_list.filter(name=city).first()
+        if name is not None:
+            p = Owner_Ship(name=name, description=description, price=price, capacity=capacity, city=my_city, owner=request.user)
+            p.save()
+            msg = 'Cargado Correctamente'
+        else:
+            error = 'Ups, algo ha ocurrido'
     if request.user.is_authenticated:
-        return render(request, "application/ownershipform.html", {'ciudades_list': ciudades_list})
+        return render(request, "application/ownershipform.html", {'ciudades_list': ciudades_list, 'error': error, 'msg': msg})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
@@ -63,7 +78,7 @@ def cityform(request):
         else:
             error = 'La ciudad debe tener nombre'
     if request.user.is_authenticated:
-        return render(request, "application/cityform.html", {'error': error,'msg': msg})
+        return render(request, "application/cityform.html", {'error': error, 'msg': msg})
         msg = ''
     # En otro caso redireccionamos al login
     return redirect('/login')
