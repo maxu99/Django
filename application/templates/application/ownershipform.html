@@ -27,8 +27,9 @@
 
                    <div class="form-group">
                     <select  class="form-control" name="city" id="">
-                        <option value=""></option>
-                        <option value=""></option>
+                        {% for city in ciudades_list   %}
+                        <option value="{{ city.name }}">{{ city.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
