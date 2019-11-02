@@ -3,13 +3,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as do_logout, authenticate
 from django.contrib.auth import login as do_login
 
+from application.models import Owner_Ship
+
 
 def welcome(request):
+    propiedades_list = Owner_Ship.objects.all()
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        return render(request, "application/welcome.html")
+        return render(request, "application/welcome.html", {'propiedades_list': propiedades_list})
     # En otro caso redireccionamos al login
     return redirect('/login')
+
 
 def register(request):
     # Creamos el formulario de autenticación vacío
@@ -33,6 +37,13 @@ def register(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "application/register.html", {'form': form})
 
+
+def ownershipform(request):
+    # Si estamos identificados devolvemos la portada
+    if request.user.is_authenticated:
+        return render(request, "application/ownershipform.html")
+    # En otro caso redireccionamos al login
+    return redirect('/login')
 
 
 def login(request):
@@ -60,6 +71,7 @@ def login(request):
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "application/login.html", {'form': form})
+
 
 def logout(request):
     # Finalizamos la sesión
