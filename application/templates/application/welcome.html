@@ -52,9 +52,9 @@
 
         <h1 class="my-4">Busca tu propiedad:</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+            {% for ciudad in ciudades_list %}
+              <a href="#" class="list-group-item">{{ ciudad.name }}</a>
+            {% endfor %}
         </div>
 
       </div>
@@ -74,12 +74,16 @@
           {% for propiedad in propiedades_list %}
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img class="card-img-top" src={{propiedad.image}} alt="Imagen no disponible">
+                {% if propiedad.image %}
+                    <img class="card-img-top" src={{propiedad.image}}>
+                {% else %}
+                    <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
+                {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
-                  <a class="text-decoration-none" href="#" >Hola</a>
+                  <a class="text-decoration-none" href="#" >{{ propiedad.name }}</a>
                 </h4>
-                <h5>$24.99</h5>
+                <h5>${{ propiedad.price }}</h5>
                 <p class="card-text">{{propiedad.description}}</p>
               </div>
               <div class="card-footer">
