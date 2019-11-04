@@ -22,7 +22,6 @@
 </head>
 
 <body>
-<p>{{ propiedades_list }}</p>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -66,10 +65,15 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">Busca tu propiedad:</h1>
-        <div class="list-group">
-            {% for ciudad in ciudades_list %}
-              <a href="#" class="list-group-item">{{ ciudad.name }}</a>
+        <h1 class="my-4">Filtra por ciudad:</h1>
+        <div class="list-group text-center">
+          <a href="/" class="list-group-item h5 text-primary"><strong>Mostrar todo</strong></a>
+            {% for ppt in propiedades_por_ciudad %}
+              {% for ciudad in ciudades_list %}
+                {% if ppt.city == ciudad.id %}
+                    <a href="/city/{{ciudad.id}}" class="list-group-item">{{ ciudad.name }} ({{ ppt.city_count }})</a>
+                {% endif %}
+              {% endfor %}
             {% endfor %}
         </div>
 
@@ -86,7 +90,38 @@
           </div>
         </div>
 
-        <div class="row">
+        {% if city %}
+          <div class="row">
+          {% for propiedad in propiedades_list %}
+            {% if propiedad.city == city %}
+              <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                {% if propiedad.image %}
+                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
+                    <p>{{ propiedad.image }}</p>
+                {% else %}
+                    <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
+                {% endif %}
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}" >{{ propiedad.name }}</a>
+                </h4>
+                <h5>${{ propiedad.price }}</h5>
+                <p class="card-text">{{propiedad.description}}</p>
+              </div>
+              <div class="card-footer">
+                    <p class="card-text text-center"><strong>{{propiedad.city}}, {{propiedad.city.province}}</strong></p>
+              </div>
+            </div>
+          </div>
+            {% endif %}
+          {% empty %}
+            <h5>No articles yet.</h5>
+          {% endfor %}
+        </div>
+        <!-- /.row -->
+        {% else %}
+          <div class="row">
           {% for propiedad in propiedades_list %}
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
@@ -113,6 +148,7 @@
           {% endfor %}
         </div>
         <!-- /.row -->
+        {% endif %}
 
       </div>
       <!-- /.col-lg-9 -->
