@@ -62,21 +62,10 @@
   <!-- Page Content -->
   <div class="container">
 
-    <div class="row">
-
-      <div class="col-lg-3">
-        <h1 class="my-4">Propiedad:</h1>
-        <div class="list-group">
-            {% for ciudad in ciudades_list %}
-              <a href="#" class="list-group-item">{{ ciudad.name }}</a>
-            {% endfor %}
-        </div>
-      </div>
-      <!-- /.col-lg-3 -->
+    <div class="row" >
 
       <div class="col-lg-9">
-
-        <div class="card mt-4">
+        <div class="card mt-4" style="width: 100%;float: left;margin: 2px;">
             {% if propiedad.image %}
                 <img class="card-img-top img-fluid" src="{{ owner_ship.image }}" alt="">
             {% else %}
@@ -92,14 +81,43 @@
             4.0 stars
           </div>
         </div>
-        <!-- /.card -->
-        <!-- /.card -->
+
+
+
+
+          </div>
+     <div class="col-lg-3" style="float: right;">
+        <div class="list-group border" style="text-align: center;border: black;margin: 10px; margin-top: 25px; border-radius: 2px;">
+            <h3 class="card-title">{{ owner_ship.name }}</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="d1">Llegada</label><input type="datetime-local" class="form-control" id="d1">
+                    <label for="d2">Salida</label><input type="datetime-local" class="form-control" id="d2">
+                    <label for="cap">Huespedes</label><select class="form-control" name="" id="cap">
+
+                        {% for value in capacity %}
+                        <option value="{{ value }}">{{ value }}</option>
+                        {% endfor %}
+
+                    </select><br>
+                <div style="text-align: left">
+                    <span style="text-align: left;">Precio por x noches:</span><br>
+                <span style="text-align: left;">Comision de servicio:</span><br>
+                <span style="text-align: left;">Precio final:</span>
+                </div>
+
+
+                </div>
+                <button class="btn btn-danger">Reservar!</button>
+            </form>
+
+        </div>
+      </div>
+        </div>
 
       </div>
-      <!-- /.col-lg-9 -->
-
     </div>
-
   </div>
   <!-- /.container -->
 
