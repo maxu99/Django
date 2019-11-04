@@ -8,9 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Reservas Master</title>
-
-  <!-- Bootstrap core CSS -->
+  <title>Shop Item - Start Bootstrap Template</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Custom styles for this template -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -19,10 +17,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
+
 </head>
 
 <body>
-<p>{{ propiedades_list }}</p>
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -40,7 +39,7 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-            <li class="dropdown">
+           <li class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Agregar...
                   </button>
@@ -58,67 +57,48 @@
       </div>
     </div>
   </nav>
+  <br><br><br>
 
   <!-- Page Content -->
-  <div class="container mt-5">
+  <div class="container">
 
     <div class="row">
 
       <div class="col-lg-3">
-
-        <h1 class="my-4">Busca tu propiedad:</h1>
+        <h1 class="my-4">Propiedad:</h1>
         <div class="list-group">
             {% for ciudad in ciudades_list %}
               <a href="#" class="list-group-item">{{ ciudad.name }}</a>
             {% endfor %}
         </div>
-
       </div>
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-9">
 
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-            </div>
+        <div class="card mt-4">
+            {% if propiedad.image %}
+                <img class="card-img-top img-fluid" src="{{ owner_ship.image }}" alt="">
+            {% else %}
+                <img class="card-img-top img-fluid" src="http://placehold.it/900x350" alt="">
+            {% endif %}
+          <div class="card-body">
+            <h3 class="card-title">{{ owner_ship.name }}</h3>
+            <h4>${{ owner_ship.price }}</h4>
+            <p class="card-text">{{ owner_ship.description }}</p>
+            <p class="card-text">Capacidad: {{ owner_ship.capacity }}</p>
+            <p class="card-text">Propietario: {{ owner_ship.owner.first_name}}  {{ owner_ship.owner.last_name }}</p>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars
           </div>
         </div>
-
-        <div class="row">
-          {% for propiedad in propiedades_list %}
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                {% if propiedad.image %}
-                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
-                    <p>{{ propiedad.image }}</p>
-                {% else %}
-                    <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
-                {% endif %}
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}" >{{ propiedad.name }}</a>
-                </h4>
-                <h5>${{ propiedad.price }}</h5>
-                <p class="card-text">{{propiedad.description}}</p>
-              </div>
-              <div class="card-footer">
-                    <p class="card-text text-center"><strong>{{propiedad.city}}, {{propiedad.city.province}}</strong></p>
-              </div>
-            </div>
-          </div>
-          {% empty %}
-            <h5>No articles yet.</h5>
-          {% endfor %}
-        </div>
-        <!-- /.row -->
+        <!-- /.card -->
+        <!-- /.card -->
 
       </div>
       <!-- /.col-lg-9 -->
 
     </div>
-    <!-- /.row -->
 
   </div>
   <!-- /.container -->
@@ -126,12 +106,10 @@
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Reservas Master 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
     </div>
     <!-- /.container -->
   </footer>
-
-  <!-- Bootstrap core JavaScript -->
 
 </body>
 

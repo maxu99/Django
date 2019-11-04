@@ -22,7 +22,7 @@ class Owner_Ship(models.Model):
     capacity = models.IntegerField()
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, null=False, on_delete=models.SET('null'))
-    image = models.CharField(null=True, blank=True, max_length=200)
+    image = models.ImageField(upload_to='application/img', null=True)
 
     class Meta:
         verbose_name_plural = 'Propiedades'
