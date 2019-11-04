@@ -11,7 +11,6 @@ class CityForm(forms.ModelForm):
         model = City
         fields = ('name', 'province',)
 
-
 class OwnerShipForm(forms.Form):
     ciudades_list = City.objects.all()
     name = forms.CharField(label='Nombre:', max_length=15)

@@ -46,9 +46,11 @@ def register(request):
 def detail(request, owner_ship_id):
     o = Owner_Ship.objects.get(id=owner_ship_id)
     ciudades_list = City.objects.all()
+    totalcapacity = o.capacity+1
+    capacity = range(1,totalcapacity)
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        return render(request, "application/detail.html", {'ciudades_list': ciudades_list, 'owner_ship': o})
+        return render(request, "application/detail.html", {'ciudades_list': ciudades_list, 'owner_ship': o,'capacity': capacity})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
