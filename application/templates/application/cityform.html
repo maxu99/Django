@@ -59,10 +59,7 @@
             <form method="POST">
                  {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" class="form-control" name="cityname" id="cityname" placeholder="Nombre de la Ciudad" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="province" id="province" placeholder="Provincia" required>
+                {{ form.as_p }}
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="background: #f0ad4e;border-color: #f0ad4e;color: #ffffff;font-size: 14px;width: 100%;height: 50px;line-height: 50px;padding: 0;" >Enviar</button>

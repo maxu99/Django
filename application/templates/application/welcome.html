@@ -91,7 +91,8 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 {% if propiedad.image %}
-                    <img class="card-img-top" src={{propiedad.image}}>
+                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
+                    <p>{{ propiedad.image }}</p>
                 {% else %}
                     <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
                 {% endif %}
