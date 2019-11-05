@@ -26,5 +26,5 @@ urlpatterns = [
     path('logout', views.logout),
     path('admin/', admin.site.urls),
     path('detail/<int:owner_ship_id>', views.detail),
-    path('city/<int:city_id>', views.welcome)
+    path('city/<int:city_id>', views.welcome),
 ]

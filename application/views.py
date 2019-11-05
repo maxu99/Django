@@ -4,7 +4,6 @@ from django.contrib.auth import logout as do_logout, authenticate
 from django.contrib.auth import login as do_login
 from django.db.models import Count
 
-
 from application.forms import CityForm
 from application.models import Owner_Ship, City
 
@@ -12,13 +11,30 @@ from ReservaMaster.settings import ROOT_DIR
 
 
 def welcome(request, city_id=''):
+    order_type = ''
     if city_id:
         city = City.objects.get(id=city_id)
     else:
         city = False
-    propiedades_list = Owner_Ship.objects.all()
+
+    if request.GET:
+        order_type = request.GET['orderby']
+
+    if order_type:
+        if order_type == 'higher_price':
+            propiedades_list = Owner_Ship.objects.all().order_by('-price')
+        elif order_type == 'lower_price':
+            propiedades_list = Owner_Ship.objects.all().order_by('price')
+        elif order_type == 'higher_capacity':
+            propiedades_list = Owner_Ship.objects.all().order_by('-capacity')
+        else:
+            propiedades_list = Owner_Ship.objects.all().order_by('capacity')
+    else:
+        propiedades_list = Owner_Ship.objects.all()
+
     ciudades_list = City.objects.all()
-    propiedades_por_ciudad = Owner_Ship.objects.values('city').annotate(city_count=Count('city')).order_by('-city_count')
+    propiedades_por_ciudad = Owner_Ship.objects.values('city').annotate(city_count=Count('city')).order_by(
+        '-city_count')
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
         return render(request, "application/welcome.html", {'propiedades_list': propiedades_list,
@@ -55,11 +71,12 @@ def register(request):
 def detail(request, owner_ship_id):
     o = Owner_Ship.objects.get(id=owner_ship_id)
     ciudades_list = City.objects.all()
-    totalcapacity = o.capacity+1
-    capacity = range(1,totalcapacity)
+    totalcapacity = o.capacity + 1
+    capacity = range(1, totalcapacity)
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        return render(request, "application/detail.html", {'ciudades_list': ciudades_list, 'owner_ship': o,'capacity': capacity})
+        return render(request, "application/detail.html",
+                      {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
@@ -85,7 +102,8 @@ def ownershipform(request):
         else:
             error = 'Ups, algo ha ocurrido'
     if request.user.is_authenticated:
-        return render(request, "application/ownershipform.html", {'ciudades_list': ciudades_list, 'error': error, 'msg': msg})
+        return render(request, "application/ownershipform.html",
+                      {'ciudades_list': ciudades_list, 'error': error, 'msg': msg})
     # En otro caso redireccionamos al login
     return redirect('/login')
 
@@ -121,8 +139,6 @@ def login(request):
             # Recuperamos las credenciales validadas
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-
-
 
             # Verificamos las credenciales del usuario
             user = authenticate(username=username, password=password)
