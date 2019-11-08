@@ -6,6 +6,7 @@ from django.db.models import Count
 
 from application.forms import CityForm
 from application.models import Owner_Ship, City
+from django.contrib.auth.models import User
 
 from ReservaMaster.settings import ROOT_DIR
 
@@ -152,6 +153,13 @@ def login(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "application/login.html", {'form': form})
 
+def userlist(request):
+    userslist = User.objects.all()
+    # Si estamos identificados devolvemos la portada
+    if request.user.is_authenticated:
+        return render(request, "application/userlists.html", {'user_list': userslist})
+    # En otro caso redireccionamos al login
+    return redirect('/login')
 
 def logout(request):
     # Finalizamos la sesión
