@@ -5,7 +5,7 @@ from django.contrib.auth import login as do_login
 from django.db.models import Count
 
 from application.forms import CityForm
-from application.models import Owner_Ship, City
+from application.models import Owner_Ship, City, Date_Rent
 
 from ReservaMaster.settings import ROOT_DIR
 
@@ -70,13 +70,14 @@ def register(request):
 
 def detail(request, owner_ship_id):
     o = Owner_Ship.objects.get(id=owner_ship_id)
+    dates = Date_Rent.objects.filter(owner_ship=o)
     ciudades_list = City.objects.all()
     totalcapacity = o.capacity + 1
     capacity = range(1, totalcapacity)
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
         return render(request, "application/detail.html",
-                      {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity})
+                      {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity, 'dates': dates})
     # En otro caso redireccionamos al login
     return redirect('/login')
 

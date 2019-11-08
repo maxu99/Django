@@ -87,11 +87,15 @@
      <div class="col-lg-3" style="float: right;">
         <div class="list-group border" style="text-align: center;border: black;margin: 10px; margin-top: 25px; border-radius: 2px;">
             <h3 class="card-title">{{ owner_ship.name }}</h3>
+        {% if dates %}
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="d1">Llegada</label><input type="datetime-local" class="form-control" id="d1">
-                    <label for="d2">Salida</label><input type="datetime-local" class="form-control" id="d2">
+                    <ul>
+                        {% for date in dates %}
+                            <label><input type="checkbox" id="cbox1" value="{{date}}">{{ date.date }}</label>
+                        {% endfor %}
+                    </ul>
                     <label for="cap">Huespedes</label><select class="form-control" name="" id="cap">
 
                         {% for value in capacity %}
@@ -109,6 +113,7 @@
                 </div>
                 <button class="btn btn-danger">Reservar!</button>
             </form>
+        {% endif %}
 
         </div>
       </div>
