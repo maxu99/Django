@@ -65,7 +65,20 @@
 
       <div class="col-lg-3">
 
-        <p class="h1 my-4">Filtra por ciudad:</p>
+      <p class="h4 my-4">Ordena las propiedades:</p>
+          <li class="dropdown mb-4" style="list-style-type: none">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ordenar por...
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_price">Mayor Precio</a>
+                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_price">Menor Precio</a>
+                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_capacity">Mayor Capacidad</a>
+                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_capacity">Menor Capacidad</a>
+                  </div>
+            </li>
+
+        <p class="h4 my-4">Filtra por ciudad:</p>
         <div class="list-group text-center">
           <a href="/" class="list-group-item h5 text-primary"><strong>Mostrar todo</strong></a>
             {% for ppt in propiedades_por_ciudad %}
@@ -89,19 +102,6 @@
             </div>
           </div>
         </div>
-
-          <p class="h4 my-4">Ordena las propiedades:</p>
-          <li class="dropdown mb-4" style="list-style-type: none">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ordenar por...
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_price">Mayor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_price">Menor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_capacity">Mayor Capacidad</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_capacity">Menor Capacidad</a>
-                  </div>
-            </li>
 
         {% if city %}
           <div class="row">

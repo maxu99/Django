@@ -47,10 +47,10 @@ class Reservation(models.Model):
 class Date_Rent(models.Model):
     date = models.DateTimeField()
     owner_ship = models.ForeignKey(Owner_Ship, null=False, on_delete=models.SET('null'))
-    reservation = models.ForeignKey(Reservation, null=False, on_delete=models.SET('null'))
+    reservation = models.ForeignKey(Reservation, null=True, on_delete=models.SET_NULL, blank=True)
 
     class Meta:
         verbose_name_plural = 'Fechas de Alquileres'
 
     def __str__(self):
-        return self.date
+        return self.date.__format__("%Y-%m-%d %H:%M:%S")

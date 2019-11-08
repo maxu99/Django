@@ -93,10 +93,10 @@ def ownershipform(request):
         price = request.POST['price']
         city = request.POST['city']
         my_city = ciudades_list.filter(name=city).first()
-        image = request.POST.get('image', False)
+
         if name is not None:
             p = Owner_Ship(name=name, description=description, price=price, capacity=capacity, city=my_city,
-                           owner=request.user, image=image)
+                           owner=request.user)
             p.save()
             msg = 'Cargado Correctamente'
         else:
