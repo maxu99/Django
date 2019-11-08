@@ -66,10 +66,8 @@
 
       <div class="col-lg-9">
         <div class="card mt-4" style="width: 100%;float: left;margin: 2px;">
-            {% if propiedad.image %}
-                <img class="card-img-top img-fluid" src="{{ owner_ship.image }}" alt="">
-            {% else %}
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x350" alt="">
+            {% if owner_ship.image %}
+                <img class="card-img-top img-fluid" src="{{ owner_ship.image.url }}" alt="">
             {% endif %}
           <div class="card-body">
             <h3 class="card-title">{{ owner_ship.name }}</h3>
