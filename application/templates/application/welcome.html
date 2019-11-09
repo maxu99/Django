@@ -66,17 +66,12 @@
       <div class="col-lg-3">
 
       <p class="h4 my-4">Ordena las propiedades:</p>
-          <li class="dropdown mb-4" style="list-style-type: none">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ordenar por...
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_price">Mayor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_price">Menor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_capacity">Mayor Capacidad</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_capacity">Menor Capacidad</a>
-                  </div>
-            </li>
+          <div class="list-group text-center">
+              <a href="{{request.path}}?orderby=higher_price" class="list-group-item">Mayor Precio:</a>
+              <a href="{{request.path}}?orderby=lower_price" class="list-group-item">Menor Precio:</a>
+              <a href="{{request.path}}?orderby=higher_capacity" class="list-group-item">Mayor Capacidad:</a>
+              <a href="{{request.path}}?orderby=lower_capacity" class="list-group-item">Menor Capacidad:</a>
+          </div>
 
         <p class="h4 my-4">Filtra por ciudad:</p>
         <div class="list-group text-center">
@@ -98,7 +93,7 @@
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://media.graytvinc.com/images/810*455/airbnb+mgn4.jpg" alt="First slide">
             </div>
           </div>
         </div>
