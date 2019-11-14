@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class City(models.Model):
@@ -23,12 +24,15 @@ class Owner_Ship(models.Model):
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, null=False, on_delete=models.SET('null'))
     image = models.ImageField(upload_to='application/img', null=True)
+    date_in = models.DateField(null=True)
+    date_out = models.DateField(null=True)
+   
 
     class Meta:
         verbose_name_plural = 'Propiedades'
 
     def __str__(self):
-        return self.description
+        return self.name
 
 
 class Reservation(models.Model):
