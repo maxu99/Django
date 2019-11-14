@@ -24,14 +24,14 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li nav-item active>
-            <a class="nav-link disabled text-white">{{request.user}}!</a>
+            <a class="nav-link disabled text-white">¡Bienvenido, {{request.user}}!</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
-           <li class="dropdown">
+            <li class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menú...
                   </button>
@@ -39,7 +39,7 @@
                     <a class="dropdown-item" href="/propiedad">Agregar Propiedad</a>
                     {% if request.user.is_superuser %}
                     <a class="dropdown-item" href="/ciudad">Agregar Ciudad</a>
-                     <a class="dropdown-item" href="/reservasadmin">Lista Reservas</a>
+                    <a class="dropdown-item" href="/reservasadmin">Lista Reservas</a>
                     {% endif %}
                   </div>
             </li>
