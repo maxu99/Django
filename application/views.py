@@ -170,6 +170,15 @@ def login(request):
     return render(request, "application/login.html", {'form': form})
 
 
+def reservationadmin(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+         return render(request, "application/reservationadmin.html")
+
+    # En otro caso redireccionamos al login
+    return redirect('/login')
+
+
 def logout(request):
     # Finalizamos la sesión
     do_logout(request)
