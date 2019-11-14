@@ -25,7 +25,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Reservas Master</a>
+      <a class="navbar-brand" href="/">Reservas Master</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -65,7 +65,15 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">Filtra por ciudad:</h1>
+      <p class="h4 my-4">Ordena las propiedades:</p>
+          <div class="list-group text-center">
+              <a href="{{request.path}}?orderby=higher_price" class="list-group-item">Mayor Precio:</a>
+              <a href="{{request.path}}?orderby=lower_price" class="list-group-item">Menor Precio:</a>
+              <a href="{{request.path}}?orderby=higher_capacity" class="list-group-item">Mayor Capacidad:</a>
+              <a href="{{request.path}}?orderby=lower_capacity" class="list-group-item">Menor Capacidad:</a>
+          </div>
+
+        <p class="h4 my-4">Filtra por ciudad:</p>
         <div class="list-group text-center">
           <a href="/" class="list-group-item h5 text-primary"><strong>Mostrar todo</strong></a>
             {% for ppt in propiedades_por_ciudad %}
@@ -85,7 +93,7 @@
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://media.graytvinc.com/images/810*455/airbnb+mgn4.jpg" alt="First slide">
             </div>
           </div>
         </div>
@@ -97,10 +105,7 @@
               <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 {% if propiedad.image %}
-                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
-                    <p>{{ propiedad.image }}</p>
-                {% else %}
-                    <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
+                    <img class="card-img-top" src="{{ propiedad.image.url }}">>
                 {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
@@ -126,8 +131,7 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 {% if propiedad.image %}
-                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
-                    <p>{{ propiedad.image }}</p>
+                    <img class="card-img-top" src="{{propiedad.image.url}}">
                 {% else %}
                     <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
                 {% endif %}
