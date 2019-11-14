@@ -179,7 +179,7 @@ def login(request):
     return render(request, "application/login.html", {'form': form})
 
 
-def reservationadmin(request):
+def reservations(request):
     reservations = []
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -187,7 +187,7 @@ def reservationadmin(request):
         else:
             reservations = Reservation.objects.filter(renter__id=request.user.id).all()
 
-    return render(request, "application/reservationadmin.html", {"reservations": reservations})
+    return render(request, "application/reservations.html", {"reservations": reservations})
 
     # En otro caso redireccionamos al login
     return redirect('/login')
