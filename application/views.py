@@ -1,3 +1,6 @@
+import random
+from datetime import datetime
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as do_logout, authenticate
@@ -7,7 +10,7 @@ from django.db.models import Count
 from application.forms import CityForm
 from application.models import Owner_Ship, City
 from django.contrib.auth.models import User
-
+from application.models import Owner_Ship, City, Date_Rent, Reservation
 from ReservaMaster.settings import ROOT_DIR
 
 
@@ -70,16 +73,31 @@ def register(request):
 
 
 def detail(request, owner_ship_id):
-    o = Owner_Ship.objects.get(id=owner_ship_id)
-    ciudades_list = City.objects.all()
-    totalcapacity = o.capacity + 1
-    capacity = range(1, totalcapacity)
-    # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
+        o = Owner_Ship.objects.get(id=owner_ship_id)
+        dates = Date_Rent.objects.filter(owner_ship=o).filter(reservation=None)
+        ciudades_list = City.objects.all()
+        totalcapacity = o.capacity + 1
+        capacity = range(1, totalcapacity)
+        msg = ''
+
+        if request.method == 'POST':
+            date_list = request.POST.getlist('dates')
+            reservation = Reservation(date=datetime.now(), code=random.randrange(999, 99999), total=int(o.price*len(date_list)), owner_ship=o)
+            reservation.save()
+            for date in date_list:
+                date_new = Date_Rent.objects.filter(date=date).first()
+                date_new.reservation = reservation
+                date_new.save()
+
         return render(request, "application/detail.html",
-                      {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity})
+                      {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity, 'dates': dates})
     # En otro caso redireccionamos al login
     return redirect('/login')
+
+
+def reservation(request):
+    return render(request, "application/reservationdetail.html")
 
 
 def ownershipform(request):
@@ -94,12 +112,11 @@ def ownershipform(request):
         price = request.POST['price']
         city = request.POST['city']
         my_city = ciudades_list.filter(name=city).first()
-
+        image = request.FILES.get('file')
         if name is not None:
             p = Owner_Ship(name=name, description=description, price=price, capacity=capacity, city=my_city,
-                           owner=request.user)
+                           owner=request.user, image=image)
             p.save()
-            msg = 'Cargado Correctamente'
         else:
             error = 'Ups, algo ha ocurrido'
     if request.user.is_authenticated:
@@ -160,6 +177,15 @@ def userlist(request):
         return render(request, "application/userlists.html", {'user_list': userslist})
     # En otro caso redireccionamos al login
     return redirect('/login')
+
+def reservationadmin(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+         return render(request, "application/reservationadmin.html")
+
+    # En otro caso redireccionamos al login
+    return redirect('/login')
+
 
 def logout(request):
     # Finalizamos la sesión

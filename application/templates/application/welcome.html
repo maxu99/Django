@@ -41,12 +41,13 @@
           </li>
             <li class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Agregar...
+                    Menú...
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <a class="dropdown-item" href="/propiedad">Propiedad</a>
+                    <a class="dropdown-item" href="/propiedad">Agregar Propiedad</a>
                     {% if request.user.is_superuser %}
-                    <a class="dropdown-item" href="/ciudad">Ciudad</a>
+                    <a class="dropdown-item" href="/ciudad">Agregar Ciudad</a>
+                    <a class="dropdown-item" href="/reservasadmin">Lista Reservas</a>
                     {% endif %}
                   </div>
             </li>
@@ -66,17 +67,12 @@
       <div class="col-lg-3">
 
       <p class="h4 my-4">Ordena las propiedades:</p>
-          <li class="dropdown mb-4" style="list-style-type: none">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ordenar por...
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_price">Mayor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_price">Menor Precio</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=higher_capacity">Mayor Capacidad</a>
-                      <a class="dropdown-item" href="{{request.path}}?orderby=lower_capacity">Menor Capacidad</a>
-                  </div>
-            </li>
+          <div class="list-group text-center">
+              <a href="{{request.path}}?orderby=higher_price" class="list-group-item">Mayor Precio:</a>
+              <a href="{{request.path}}?orderby=lower_price" class="list-group-item">Menor Precio:</a>
+              <a href="{{request.path}}?orderby=higher_capacity" class="list-group-item">Mayor Capacidad:</a>
+              <a href="{{request.path}}?orderby=lower_capacity" class="list-group-item">Menor Capacidad:</a>
+          </div>
 
         <p class="h4 my-4">Filtra por ciudad:</p>
         <div class="list-group text-center">
@@ -98,7 +94,7 @@
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://media.graytvinc.com/images/810*455/airbnb+mgn4.jpg" alt="First slide">
             </div>
           </div>
         </div>
@@ -110,10 +106,7 @@
               <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 {% if propiedad.image %}
-                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
-                    <p>{{ propiedad.image }}</p>
-                {% else %}
-                    <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
+                    <img class="card-img-top" src="{{ propiedad.image.url }}">>
                 {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
@@ -139,8 +132,7 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 {% if propiedad.image %}
-                    <img class="card-img-top" src="{{ root }}/static/media/{{propiedad.image}}">
-                    <p>{{ propiedad.image }}</p>
+                    <img class="card-img-top" src="{{propiedad.image.url}}">
                 {% else %}
                     <img class="card-img-top" src="http://placehold.it/900x350" alt="Imagen_no_disponible">
                 {% endif %}

@@ -15,7 +15,7 @@ class OwnerShipAdmin(admin.ModelAdmin):
 
 
 admin.site.register(City)
-# admin.site.register(Owner_Ship)
+admin.site.register(Date_Rent)
 admin.site.register(Reservation)
 admin.site.register(Owner_Ship, OwnerShipAdmin)
 
