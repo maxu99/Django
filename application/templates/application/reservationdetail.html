@@ -60,8 +60,30 @@
   <br><br><br>
 
   <!-- /.container -->
-    <p>{{ reservation }}</p>
-  <p>{{ dates }}</p>
+     <div class="container text-center ">
+
+    <div class="row" >
+
+        <div class="card mt-4" style="width: 100%;float: left;margin: 2px;">
+          <div class="card-body text-center">
+            <h3 class="card-title">Usuario: {{ reservation.renter.first_name}}  {{ reservation.renter.last_name }}</h3>
+            <h4>Precio total: ${{ reservation.total }}</h4>
+            <p class="card-text">Codigo de reserva: {{ reservation.code }}</p>
+            <p class="card-text">Fecha de realizacion: {{ reservation.date }}</p>
+            <p class="card-text">Fechas:</p>
+              <ul>
+                  {% for date in dates %}
+                    <li>{{ date.date }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+        </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">

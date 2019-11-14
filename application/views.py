@@ -74,6 +74,7 @@ def register(request):
 def detail(request, owner_ship_id):
     if request.user.is_authenticated:
         o = Owner_Ship.objects.get(id=owner_ship_id)
+        user = request.user
         dates = Date_Rent.objects.filter(owner_ship=o).filter(reservation=None)
         ciudades_list = City.objects.all()
         totalcapacity = o.capacity + 1
@@ -82,12 +83,16 @@ def detail(request, owner_ship_id):
 
         if request.method == 'POST':
             date_list = request.POST.getlist('dates')
-            reservation = Reservation(date=datetime.now(), code=random.randrange(999, 99999), total=int(o.price*len(date_list)), owner_ship=o)
-            reservation.save()
+            my_reservation = Reservation(date=datetime.now(), code=random.randrange(999, 99999), total=int(o.price * len(date_list)), owner_ship=o, renter=user)
+            my_reservation.save()
+            new_date_list = []
             for date in date_list:
                 date_new = Date_Rent.objects.filter(date=date).first()
-                date_new.reservation = reservation
+                date_new.reservation = my_reservation
                 date_new.save()
+                new_date_list.append(date_new)
+
+            return render(request, "application/reservationdetail.html", {"reservation": my_reservation, "dates": new_date_list})
 
         return render(request, "application/detail.html",
                       {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity, 'dates': dates})
@@ -95,8 +100,12 @@ def detail(request, owner_ship_id):
     return redirect('/login')
 
 
-def reservation(request):
-    return render(request, "application/reservationdetail.html")
+def reservation(request, reservation_id):
+    if request.user.is_authenticated:
+        my_reservation = Reservation.objects.filter(id=reservation_id).first()
+        date_list = Date_Rent.objects.filter(reservation__id=reservation_id)
+
+    return render(request, "application/reservationdetail.html", {"reservation": my_reservation, "dates": date_list})
 
 
 def ownershipform(request):
@@ -171,9 +180,14 @@ def login(request):
 
 
 def reservationadmin(request):
+    reservations = []
     if request.user.is_authenticated:
         if request.user.is_superuser:
-         return render(request, "application/reservationadmin.html")
+            reservations = Reservation.objects.all()
+        else:
+            reservations = Reservation.objects.filter(renter__id=request.user.id).all()
+
+    return render(request, "application/reservationadmin.html", {"reservations": reservations})
 
     # En otro caso redireccionamos al login
     return redirect('/login')

@@ -40,6 +40,7 @@ class Reservation(models.Model):
     code = models.IntegerField()
     total = models.IntegerField()
     owner_ship = models.ForeignKey(Owner_Ship, null=False, on_delete=models.SET('null'))
+    renter = models.ForeignKey(User, null=True, on_delete=models.SET('null'), blank=True)
 
     class Meta:
         verbose_name_plural = 'Reservas'
