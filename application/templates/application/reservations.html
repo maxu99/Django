@@ -24,22 +24,22 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li nav-item active>
-            <a class="nav-link disabled text-white">{{request.user}}!</a>
+            <a class="nav-link disabled text-white">¡Bienvenido, {{request.user}}!</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
-           <li class="dropdown">
+            <li class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menú...
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a class="dropdown-item" href="/reservations">Lista Reservas</a>
                     <a class="dropdown-item" href="/propiedad">Agregar Propiedad</a>
                     {% if request.user.is_superuser %}
                     <a class="dropdown-item" href="/ciudad">Agregar Ciudad</a>
-                     <a class="dropdown-item" href="/reservasadmin">Lista Reservas</a>
                     {% endif %}
                   </div>
             </li>
@@ -69,29 +69,17 @@
                   <th scope="col">Detalle</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Maximiliano Morales</td>
-                <td>Casa de Verano</td>
-                <td>$5000</td>
-                <td><a class="btn btn-danger" style="background: crimson;color: white;font-family: 'Quicksand', sans-serif;">Ver Ficha</a></td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Cristian Fonteina</td>
-                <td>Casa de Verano</td>
-                <td>$5000</td>
-                <td><a class="btn btn-danger" style="background: crimson;color: white;font-family: 'Quicksand', sans-serif;">Ver Ficha</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Mauricio Goyeneche</td>
-                  <td>Casa de Verano</td>
-                  <td>$5000</td>
-                  <td><a class="btn btn-danger" style="background: crimson;color: white;font-family: 'Quicksand', sans-serif;">Ver Ficha</a></td>
-                  </tr>
 
+              <tbody>
+                  {% for reservation in reservations %}
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>{{ reservation.renter.username }}</td>
+                    <td>{{ reservation.owner_ship.name }}</td>
+                    <td>${{ reservation.total }}</td>
+                    <td><a class="btn btn-danger" style="background: crimson;color: white;font-family: 'Quicksand', sans-serif;" href="/reservation_detail/{{ reservation.id }}">Ver Ficha</a></td>
+                    </tr>
+                  {% endfor %}
               </tbody>
               </table>
 

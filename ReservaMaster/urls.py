@@ -32,6 +32,8 @@ urlpatterns = [
     path('userlists',views.userlist),
     path('reservation_detail', views.reservation),
     path('reservasadmin', views.reservationadmin)
+    path('reservation_detail/<int:reservation_id>', views.reservation),
+    path('reservations', views.reservations)
 ]
 
 if settings.DEBUG:
