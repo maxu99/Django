@@ -30,7 +30,6 @@ def welcome(request, city_id=''):
     if request.POST:
         date1 = request.POST['fStart']
         date2 = request.POST['fEnd']
-        print(date1, date2)
 
     if date1 and date2:
         propiedades_date_list = set(Owner_Ship.objects.filter(date_rent__date__range=[date1, date2]))

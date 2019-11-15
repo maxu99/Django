@@ -19,7 +19,7 @@
                     <label>Fecha final:</label>
                     <input type="date" class="form-control" name="fEnd" id="fEnd" required>
                 </div>
-                  <button type="submit" class="btn btn-primary">Buscar</button>
+                  <button type="submit" class="btn btn-success">Buscar</button>
               </form>
           </div>
 
@@ -67,10 +67,13 @@
                 {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
-                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}" >{{ propiedad.name }}</a>
+                  <p class="text-decoration-none">{{ propiedad.name }}</p>
                 </h4>
                 <h5>${{ propiedad.price }}</h5>
                 <p class="card-text">{{propiedad.description}}</p>
+                  <div class="text-center">
+                      <a class="btn btn-success" href="/detail/{{ propiedad.id }}">Ver ficha</a>
+                  </div>
               </div>
               <div class="card-footer">
                     <p class="card-text text-center"><strong>{{propiedad.city}}, {{propiedad.city.province}}</strong></p>
@@ -95,10 +98,13 @@
                 {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
-                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}">{{ propiedad.name }}</a>
+                  <p class="text-decoration-none">{{ propiedad.name }}</p>
                 </h4>
                 <h5>${{ propiedad.price }}</h5>
                 <p class="card-text">{{propiedad.description}}</p>
+                  <div class="text-center">
+                      <a class="btn btn-success" href="/detail/{{ propiedad.id }}">Ver ficha</a>
+                  </div>
               </div>
               <div class="card-footer">
                     <p class="card-text text-center"><strong>{{propiedad.city}}, {{propiedad.city.province}}</strong></p>

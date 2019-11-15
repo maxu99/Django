@@ -43,7 +43,7 @@ class Reservation(models.Model):
         verbose_name_plural = 'Reservas'
 
     def __str__(self):
-        return date.strftime(self.date, '%d/%m/%Y')
+        return str(self.code)
 
 
 class Date_Rent(models.Model):
