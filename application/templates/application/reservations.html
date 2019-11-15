@@ -10,6 +10,7 @@
             </div><br>
 
             <table class="table" style="border-radius: 2px;">
+            {% if reservations %}
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">#</th>
@@ -30,6 +31,9 @@
                     <td><a class="btn btn-success" style="color: white;font-family: 'Quicksand', sans-serif;" href="/reservation_detail/{{ reservation.id }}">Ver Ficha</a></td>
                     </tr>
                   {% endfor %}
+              {% else %}
+                    <p>No hay reservas disponibles!</p>
+              {% endif %}
               </tbody>
               </table>
 
