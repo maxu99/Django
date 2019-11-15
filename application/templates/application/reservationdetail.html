@@ -8,25 +8,25 @@
         <!--//if reserva == true-->
         <ul class="list-group p-3">
             <li class="list-group-item">
-                <p><strong>Usuario: </strong></p>
+                <p><strong>Usuario:</strong> {{ reservation.renter.username }}</p>
             </li>
             <li class="list-group-item">
-                <p><strong>Propiedad: </strong></p>
+                <p><strong>Propiedad:</strong> {{ reservation.owner_ship.name }}</p>
             </li>
             <li class="list-group-item">
-                <p><strong>Código de reserva: </strong></p>
+                <p><strong>Código de reserva: </strong>{{ reservation.code }}</p>
             </li>
             <li class="list-group-item">
-                <p><strong>Monto: </strong></p>
+                <p><strong>Monto: {{ reservation.total }}</strong></p>
             </li>
             <li class="list-group-item">
                 <p><strong>Fechas: </strong></p>
                 <ul class="list-group">
-                    <!-- //for each dates -->
+                    {% for date in dates %}
                     <li class="list-group-item">
-                        <p><strong>Día: </strong></p>
+                        <p><strong>Día: </strong>{{ date.date }}</p>
                     </li>
-                    <!-- //end for each dates -->
+                    {% endfor %}
                 </ul>
             </li>
         </ul>
