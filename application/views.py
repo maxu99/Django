@@ -84,7 +84,8 @@ def detail(request, owner_ship_id):
 
         if request.method == 'POST':
             date_list = request.POST.getlist('dates')
-            my_reservation = Reservation(date=datetime.now(), code=random.randrange(999, 99999), total=int(o.price * len(date_list)), owner_ship=o, renter=user)
+            my_reservation = Reservation(date=datetime.now(), code=random.randrange(999, 99999),
+                                         total=int(o.price * len(date_list)), owner_ship=o, renter=user)
             my_reservation.save()
             new_date_list = []
             for date in date_list:
@@ -93,7 +94,8 @@ def detail(request, owner_ship_id):
                 date_new.save()
                 new_date_list.append(date_new)
 
-            return render(request, "application/reservationdetail.html", {"reservation": my_reservation, "dates": new_date_list})
+            return render(request, "application/reservationdetail.html",
+                          {"reservation": my_reservation, "dates": new_date_list})
 
         return render(request, "application/detail.html",
                       {'ciudades_list': ciudades_list, 'owner_ship': o, 'capacity': capacity, 'dates': dates})
@@ -179,6 +181,7 @@ def login(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "application/login.html", {'form': form})
 
+
 def userlist(request):
     userslist = User.objects.all()
     # Si estamos identificados devolvemos la portada
@@ -186,6 +189,7 @@ def userlist(request):
         return render(request, "application/userlists.html", {'user_list': userslist})
     # En otro caso redireccionamos al login
     return redirect('/login')
+
 
 def reservations(request):
     reservations = []
