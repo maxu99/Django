@@ -7,6 +7,21 @@
     <div class="row">
 
       <div class="col-lg-3">
+      <p class="h4 my-4">Filtra por fechas:</p>
+          <div class="list-group text-center">
+              <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" class="form-control" name="fStart" id="fStart" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha final:</label>
+                    <input type="date" class="form-control" name="fEnd" id="fEnd" required>
+                </div>
+                  <button type="submit" class="btn btn-primary">Buscar</button>
+              </form>
+          </div>
 
       <p class="h4 my-4">Ordena las propiedades:</p>
           <div class="list-group text-center">
@@ -80,7 +95,7 @@
                 {% endif %}
               <div class="card-body">
                 <h4 class="card-title">
-                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}" >{{ propiedad.name }}</a>
+                  <a class="text-decoration-none" href="/detail/{{ propiedad.id }}">{{ propiedad.name }}</a>
                 </h4>
                 <h5>${{ propiedad.price }}</h5>
                 <p class="card-text">{{propiedad.description}}</p>

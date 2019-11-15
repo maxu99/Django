@@ -16,6 +16,9 @@ from ReservaMaster.settings import ROOT_DIR
 
 def welcome(request, city_id=''):
     order_type = ''
+    date1 = ''
+    date2 = ''
+    propiedades_date_list = []
     if city_id:
         city = City.objects.get(id=city_id)
     else:
@@ -24,17 +27,26 @@ def welcome(request, city_id=''):
     if request.GET:
         order_type = request.GET['orderby']
 
-    if order_type:
+    if request.POST:
+        date1 = request.POST['fStart']
+        date2 = request.POST['fEnd']
+        print(date1, date2)
+
+    if date1 and date2:
+        propiedades_date_list = set(Owner_Ship.objects.filter(date_rent__date__range=[date1, date2]))
+
+    propiedades_list = Owner_Ship.objects.all()
+    if propiedades_date_list:
+        propiedades_list = propiedades_date_list
+    elif order_type:
         if order_type == 'higher_price':
-            propiedades_list = Owner_Ship.objects.all().order_by('-price')
+            propiedades_list = propiedades_list.order_by('-price')
         elif order_type == 'lower_price':
-            propiedades_list = Owner_Ship.objects.all().order_by('price')
+            propiedades_list = propiedades_list.order_by('price')
         elif order_type == 'higher_capacity':
-            propiedades_list = Owner_Ship.objects.all().order_by('-capacity')
+            propiedades_list = propiedades_list.order_by('-capacity')
         else:
-            propiedades_list = Owner_Ship.objects.all().order_by('capacity')
-    else:
-        propiedades_list = Owner_Ship.objects.all()
+            propiedades_list = propiedades_list.order_by('capacity')
 
     ciudades_list = City.objects.all()
     propiedades_por_ciudad = Owner_Ship.objects.values('city').annotate(city_count=Count('city')).order_by(
