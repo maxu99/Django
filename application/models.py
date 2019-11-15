@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-
 class City(models.Model):
     name = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
@@ -24,8 +23,6 @@ class Owner_Ship(models.Model):
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, null=False, on_delete=models.SET('null'))
     image = models.ImageField(upload_to='application/img', null=True)
-    date_in = models.DateField(null=True)
-    date_out = models.DateField(null=True)
    
 
     class Meta:
@@ -40,6 +37,7 @@ class Reservation(models.Model):
     code = models.IntegerField()
     total = models.IntegerField()
     owner_ship = models.ForeignKey(Owner_Ship, null=False, on_delete=models.SET('null'))
+    renter = models.ForeignKey(User, null=True, on_delete=models.SET('null'), blank=True)
 
     class Meta:
         verbose_name_plural = 'Reservas'
