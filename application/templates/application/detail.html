@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 
-  <div class="container">
+  <div class="container mb-3">
 
     <div class="row" >
 
@@ -17,7 +17,7 @@
             <h4>${{ owner_ship.price }}</h4>
             <p class="card-text">{{ owner_ship.description }}</p>
             <p class="card-text">Capacidad: {{ owner_ship.capacity }}</p>
-            <p class="card-text">Propietario: {{ owner_ship.owner.first_name}}  {{ owner_ship.owner.last_name }}</p>
+            <p class="card-text">Propietario: {{ owner_ship.owner.username }}</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
           </div>

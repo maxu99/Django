@@ -27,7 +27,7 @@
                     <td>{{ reservation.renter.username }}</td>
                     <td>{{ reservation.owner_ship.name }}</td>
                     <td>${{ reservation.total }}</td>
-                    <td><a class="btn btn-danger" style="background: crimson;color: white;font-family: 'Quicksand', sans-serif;" href="/reservation_detail/{{ reservation.id }}">Ver Ficha</a></td>
+                    <td><a class="btn btn-success" style="color: white;font-family: 'Quicksand', sans-serif;" href="/reservation_detail/{{ reservation.id }}">Ver Ficha</a></td>
                     </tr>
                   {% endfor %}
               </tbody>
